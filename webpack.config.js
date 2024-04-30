@@ -2,6 +2,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const mode = process.env.NODE_ENV || "production";
+const URL = {
+  production: "http://localhost:3001/remoteEntry.js",
+  develop: "http://localhost:3001/remoteEntry.js",
+};
 
 module.exports = {
   mode,
@@ -33,7 +37,7 @@ module.exports = {
         "./app": "./src/app.jsx",
       },
       remotes: {
-        application_a: "application_a@http://localhost:3001/remoteEntry.js",
+        application_a: `application_a@${URL[mode]}`,
       },
       shared: ["react", "react-dom"],
     }),
